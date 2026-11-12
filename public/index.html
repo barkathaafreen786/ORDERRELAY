@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f5f9">
+  <title>OrderRelay — Payment investigations</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" type="module"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <div class="brand"><span class="logo" aria-hidden="true">↳</span> OrderRelay</div>
+      <span class="environment"><span></span> Seller workspace</span>
+    </div>
+  </header>
+  <main class="shell">
+    <section class="hero">
+      <div class="eyebrow">PAYMENT OPERATIONS</div>
+      <h1>What happened to<br>this payment?</h1>
+      <p>Check the PayPal order and capture, then draft a reply your customer can act on.</p>
+      <div class="hero-decoration" aria-hidden="true"><span>01</span><i></i><span>02</span><i></i><span>03</span></div>
+    </section>
+    <nav class="sources" aria-label="Investigation source">
+      <button type="button" data-source="sample" aria-pressed="true">Sample cases</button>
+      <button type="button" data-source="sandbox" aria-pressed="false">PayPal sandbox</button>
+      <span id="config" class="config"></span>
+    </nav>
+    <div class="workspace">
+      <section class="panel intake" aria-labelledby="intake-title">
+        <div class="panel-heading"><span class="index">01</span><h2 id="intake-title">Open a case</h2></div>
+        <form id="case-form">
+          <div id="sample-fields">
+            <label for="scenario">Sample case</label>
+            <select id="scenario">
+              <option value="approved">Buyer approved · page froze</option>
+              <option value="paid">Payment completed · receipt missing</option>
+              <option value="pending">Capture pending · buyer asks for update</option>
+            </select>
+          </div>
+          <div id="sandbox-fields" hidden>
+            <label for="order-id">PayPal sandbox order ID</label>
+            <input id="order-id" placeholder="e.g. 5O190127TN364715T" autocomplete="off" maxlength="36" spellcheck="false">
+            <div class="sandbox-actions">
+              <button class="secondary" id="create" type="button">Create $24 test checkout ↗</button>
+              <button class="secondary" id="capture" type="button" hidden>Capture test payment</button>
+            </div>
+            <p id="sandbox-message" class="small"></p>
+          </div>
+          <label for="ticket">Buyer’s message <span>Optional</span></label>
+          <textarea id="ticket" maxlength="700" rows="4" placeholder="Paste a short message without personal details."></textarea>
+          <button id="investigate" class="primary" type="submit">Investigate payment <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="small footnote" id="source-note">Sample records let you try the workflow without credentials.</p>
+      </section>
+      <div class="output">
+        <section class="panel evidence" aria-labelledby="evidence-title">
+          <div class="panel-heading"><span class="index">02</span><h2 id="evidence-title">Payment evidence</h2><span class="tag" id="source-tag" hidden></span></div>
+          <div id="placeholder" class="placeholder">
+            <div class="empty-mark" aria-hidden="true">◎</div>
+            <h3>Ready to investigate</h3>
+            <p>Run a case to see the order state, capture evidence and a suggested next step.</p>
+          </div>
+          <div id="evidence-content" hidden>
+            <div id="verdict" class="verdict"><strong id="result-label"></strong><p id="explanation"></p></div>
+            <dl class="facts" id="facts"></dl>
+            <p class="action"><strong>Seller next step</strong> <span id="action"></span></p>
+          </div>
+        </section>
+        <section class="panel draft" aria-labelledby="draft-title">
+          <div class="panel-heading"><span class="index">03</span><h2 id="draft-title">Customer reply</h2><span id="draft-tag" class="tag" hidden></span></div>
+          <p id="draft-placeholder" class="small">Your draft appears after the payment check.</p>
+          <div id="draft-content" hidden>
+            <label class="sr-only" for="reply">Review and edit the customer reply</label>
+            <textarea id="reply" rows="4" spellcheck="false"></textarea>
+            <div class="draft-actions"><p class="small" id="draft-note"></p><button type="button" class="secondary" id="copy">Copy reply</button></div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+    <footer><span>ORDERRELAY</span><span>Payment evidence first. Seller review before sharing.</span></footer>
+  </main>
+</body>
+</html>
